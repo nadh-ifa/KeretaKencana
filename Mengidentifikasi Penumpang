@@ -21,17 +21,21 @@ public class Penumpang {
         System.out.println("Hello, princess passengers!");
         System.out.print("Kenalan dong, nama kamu siapa?: ");
         String passengerName = scanner.nextLine();
-        System.out.print("Mau kemana hari ini, cantiknya aku?: ");
-        String passengerLocation = scanner.nextLine();
+        
         System.out.print("Kamu laki-laki atau perempuan, nih?: ");
         String passengerGender = scanner.nextLine();
 
         // Memastikan hanya penumpang perempuan yang bisa melanjutkan
-        if (passengerGender.equalsIgnoreCase("Perempuan")) {
-            System.out.println("Data berhasil disimpan!");
-            Passenger passenger = new Passenger(passengerName, passengerLocation, passengerGender);
-        } else {
-            System.out.println("Eits..girls only ya!");
+        if (!passengerGender.equalsIgnoreCase("Perempuan")) {
+            System.out.println("Eits...Girls only ya!");
+            return; // Keluar dari program jika bukan perempuan
         }
+
+        // Jika gendernya perempuan, lanjutkan ke pertanyaan selanjutnya
+        System.out.print("Mau kemana hari ini, cantiknya aku?: ");
+        String passengerLocation = scanner.nextLine();
+
+        System.out.println("Oke, ayo cari driver!");
+        Passenger passenger = new Passenger(passengerName, passengerLocation, passengerGender);
     }
 }
