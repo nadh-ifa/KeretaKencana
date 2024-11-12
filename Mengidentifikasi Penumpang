@@ -22,20 +22,19 @@ public class Penumpang {
         System.out.print("Kenalan dong, nama kamu siapa?: ");
         String passengerName = scanner.nextLine();
         
-        System.out.print("Kamu laki-laki atau perempuan, nih?: ");
+        System.out.print("Apakah kamu seorang perempuan? (y/n): ");
         String passengerGender = scanner.nextLine();
 
-        // Memastikan hanya penumpang perempuan yang bisa melanjutkan
-        if (!passengerGender.equalsIgnoreCase("Perempuan")) {
+        // Memastikan jika input 'y' maka lanjut, jika 'n' maka keluar
+        if (passengerGender.equalsIgnoreCase("y")) {
+            // Jika perempuan, lanjutkan ke pertanyaan selanjutnya
+            System.out.print("Mau kemana hari ini, cantiknya aku?: ");
+            String passengerLocation = scanner.nextLine();
+
+            System.out.println("Oke, ayo cari driver!");
+            Passenger passenger = new Passenger(passengerName, passengerLocation, "Perempuan");
+        } else {
             System.out.println("Eits...Girls only ya!");
-            return; // Keluar dari program jika bukan perempuan
         }
-
-        // Jika gendernya perempuan, lanjutkan ke pertanyaan selanjutnya
-        System.out.print("Mau kemana hari ini, cantiknya aku?: ");
-        String passengerLocation = scanner.nextLine();
-
-        System.out.println("Oke, ayo cari driver!");
-        Passenger passenger = new Passenger(passengerName, passengerLocation, passengerGender);
     }
 }
