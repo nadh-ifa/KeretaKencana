@@ -1,40 +1,30 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+public static void addPassenger() {
+    System.out.print("Nama kamu siapa, nih?: ");
+    String name = scanner.nextLine();
 
-class Passenger {
-    String name;
-    String location;
-    String gender;
+    System.out.print("Apakah kamu seorang perempuan? (y/n): ");
+    String genderInput = scanner.nextLine();
+    if (!genderInput.equalsIgnoreCase("y")) {
+        System.out.println("Eits.. Girls only yaaa!");
+        return;
+    }
 
-    Passenger(String name, String location, String gender) {
-        this.name = name;
-        this.location = location;
-        this.gender = gender;
+    System.out.print("Mau kemana hari ini, cantik?: ");
+    String location = scanner.nextLine();
+
+    if (verifyIdentity(name)) {
+        Passenger passenger = new Passenger(name, location, "Perempuan");
+        passengers.add(passenger);
+        System.out.println("Tuan putri " + name + " sudah siap berangkat!");
+    } else {
+        System.out.println("Verifikasi gagal, coba lagi yaaa.");
     }
 }
 
-public class Penumpang {
-    static Scanner scanner = new Scanner(System.in);
-
-    public static void main(String[] args) {
-
-        System.out.println("Hello, princess passengers!");
-        System.out.print("Kenalan dong, nama kamu siapa?: ");
-        String passengerName = scanner.nextLine();
-        
-        System.out.print("Apakah kamu seorang perempuan? (y/n): ");
-        String passengerGender = scanner.nextLine();
-
-        // Memastikan jika input 'y' maka lanjut, jika 'n' maka keluar
-        if (passengerGender.equalsIgnoreCase("y")) {
-            // Jika perempuan, lanjutkan ke pertanyaan selanjutnya
-            System.out.print("Mau kemana hari ini, cantiknya aku?: ");
-            String passengerLocation = scanner.nextLine();
-
-            System.out.println("Oke, ayo cari driver!");
-            Passenger passenger = new Passenger(passengerName, passengerLocation, "Perempuan");
-        } else {
-            System.out.println("Eits...Girls only ya!");
-        }
-    }
+public static boolean verifyIdentity(String name) {
+    System.out.print("Masukkan NIK untuk verifikasi: ");
+    String identity = scanner.nextLine();
+    System.out.print("Masukkan ulang NIK untuk konfirmasi: ");
+    String confirmIdentity = scanner.nextLine();
+    return identity.equals(confirmIdentity);
 }
