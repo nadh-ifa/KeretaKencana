@@ -20,11 +20,3 @@ public static void addPassenger() {
         System.out.println("Verifikasi gagal, coba lagi yaaa.");
     }
 }
-
-public static boolean verifyIdentity(String name) {
-    System.out.print("Masukkan NIK untuk verifikasi: ");
-    String identity = scanner.nextLine();
-    System.out.print("Masukkan ulang NIK untuk konfirmasi: ");
-    String confirmIdentity = scanner.nextLine();
-    return identity.equals(confirmIdentity);
-}
