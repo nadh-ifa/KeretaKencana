@@ -1,1 +1,58 @@
+public static void payTrip() {
+    System.out.print("Masukkan nama tuan putri untuk pembayaran: ");
+    String name = scanner.nextLine();
+    Passenger passenger = findPassengerByName(name);
+
+    if (passenger == null) {
+        System.out.println("Tuan putrinya belum ada, nih.");
+        return;
+    }
+
+    System.out.print("Masukkan jarak perjalanan (dalam km): ");
+    int tripDistance = scanner.nextInt();
+    if (tripDistance <= 0) {
+        System.out.println("Jarak perjalanan tidak valid.");
+        return;
+    }
+
+    int costPerKm = 5000;
+    int totalCost = tripDistance * costPerKm;
+
+    System.out.println("Total biaya perjalanan: Rp" + totalCost);
+    System.out.println("\nPilih metode pembayaran:");
+    System.out.println("1. Cash");
+    System.out.println("2. Transfer Bank");
+    System.out.println("3. E-Wallet");
+    System.out.println("4. Ngutang");
+
+    int paymentMethod = scanner.nextInt();
+    scanner.nextLine(); // Konsumsi newline
+
+    switch (paymentMethod) {
+        case 1:
+        case 2:
+        case 3:
+            System.out.print("Masukkan jumlah uang yang dibayarkan: ");
+            int payment = scanner.nextInt();
+            scanner.nextLine(); // Konsumsi newline
+
+            if (payment < totalCost) {
+                System.out.println("Duitnya kurang, minta papa dulu.");
+            } else if (payment == totalCost) {
+                System.out.println("Pembayaran berhasil. Terima kasih, Cantik!");
+            } else {
+                int change = payment - totalCost;
+                System.out.println("Pembayaran berhasil. Kembalianmu: Rp" + change);
+                System.out.println("Terima kasih, Cantik!");
+            }
+            break;
+
+        case 4:
+            System.out.println("Gaboleh ngutang bang.");
+            break;
+
+        default:
+            System.out.println("Metode pembayaran tidak valid.");
+    }
+}
 
