@@ -1,70 +1,44 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-
-class Driver {
-    String name;
-    double distance; 
-    double rating;
-    boolean available;
-
-    Driver(String name, double distance, double rating, boolean available) {
-        this.name = name;
-        this.distance = distance;
-        this.rating = rating;
-        this.available = available;
-    }
-}
-
-public class Pengemudi {
-    static ArrayList<Driver> drivers = new ArrayList<>();
-    static Scanner scanner = new Scanner(System.in);
-
-    public static void main(String[] args) {
-        // Menambahkan data driverik
-        drivers.add(new Driver("Nana Cina", 1.2, 4.5, true));
-        drivers.add(new Driver("Adel Gemoi", 0.8, 4.7, true));
-        drivers.add(new Driver("Depi Meong", 2.5, 4.2, true));
-        drivers.add(new Driver("Nadip Ikan", 1.0, 4.8, true));
-
-        // Memulai proses pencarian driver
-        searchDriver();
+public static void findNearestDriver() {
+    if (passengers.isEmpty()) {
+        System.out.println("Tuan putri nya belum ada, nih.");
+        return;
     }
 
-    // Metode untuk mencari driver yang tersedia
-    static void searchDriver() {
-        System.out.println("Tar yak nyari driver dulu");
-        for (Driver driver : drivers) {
-            if (driver.available) {
-                // Menampilkan detail driver yang ditemukan
-                System.out.println("\nDapet nih!:");
-                System.out.println("Nama: " + driver.name);
-                System.out.println("Jarak dari penumpang: " + driver.distance + " km");
-                System.out.println("Rating: " + driver.rating);
-                
-                // Menampilkan pilihan untuk penumpang
-                System.out.println("\nPilih tindakan:");
-                System.out.println("1 = 'Mau ini pls' (memilih driver ini)");
-                System.out.println("2 = 'Skip deh'");
-                System.out.println("3 = 'Mau cancel'");
+    System.out.print("Masukkan nama tuan putri untuk pencarian driver: ");
+    String passengerName = scanner.nextLine();
+    Passenger passenger = findPassengerByName(passengerName);
+    if (passenger == null) {
+        System.out.println("Tuan putri nya belum ada, nih.");
+        return;
+    }
 
-                // Membaca pilihan pengguna
-                int choice = scanner.nextInt();
-                scanner.nextLine(); // membersihkan newline dari input
+    for (Driver driver : drivers) {
+        if (driver.available) {
+            System.out.println("\nDapet nih!:");
+            System.out.println("Nama: " + driver.name);
+            System.out.println("Jarak dari penumpang: " + driver.distance + " km");
+            System.out.println("Rating: " + driver.rating);
 
-                if (choice == 1) {
-                    System.out.println("Berang berang makan tomat, berangkaaatt!");
-                    return;
-                } else if (choice == 2) {
-                    continue; // Cari driver berikutnya
-                } else if (choice == 3) {
-                    System.out.println("Yah, see u :(");
-                    return;
-                } else {
-                    System.out.println("Gabisaa, coba lagi yaa.");
-                }
+            System.out.println("\nPilih tindakan:");
+            System.out.println("1 = 'Mau ini pls' (memilih driver ini)");
+            System.out.println("2 = 'Skip deh'");
+            System.out.println("3 = 'Mau cancel'");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            if (choice == 1) {
+                System.out.println("Berang berang makan tomat, berangkaaatt!");
+                return;
+            } else if (choice == 2) {
+                continue;
+            } else if (choice == 3) {
+                System.out.println("Yah, see u :(");
+                return;
+            } else {
+                System.out.println("Gabisaa, coba lagi yaa.");
             }
         }
-        System.out.println("Lagi gaada driver, nanti aja yak.");
     }
+    System.out.println("Lagi gaada driver, nanti aja yak.");
 }
-
