@@ -1,0 +1,231 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Passenger {
+    String name;
+    String location;
+    String gender;
+
+    Passenger(String name, String location, String gender) {
+        this.name = name;
+        this.location = location;
+        this.gender = gender;
+    }
+}
+
+class Driver {
+    String name;
+    double distance;
+    double rating;
+    boolean available;
+
+    Driver(String name, double distance, double rating, boolean available) {
+        this.name = name;
+        this.distance = distance;
+        this.rating = rating;
+        this.available = available;
+    }
+}
+
+public class KeretaKencana {
+    static ArrayList<Passenger> passengers = new ArrayList<>();
+    static ArrayList<Driver> drivers = new ArrayList<>();
+    static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        // Tambahkan data driver
+        drivers.add(new Driver("Nadip Ikan", 3.0, 4.8, true));
+        drivers.add(new Driver("Adel Gemoi", 5.0, 4.7, true));
+        drivers.add(new Driver("Devi Meong", 2.0, 4.9, true));
+        drivers.add(new Driver("Nana Cina", 6.0, 4.6, true));
+
+        int choice;
+        do {
+            System.out.println("\n=== Halo, Silahkan Naik ke Kereta Kencana! ===");
+            System.out.println("1. Kenalan, Yuk!");
+            System.out.println("2. Dapatkan Driver");
+            System.out.println("3. Bayar Perjalanan");
+            System.out.println("4. Tindakan Darurat");
+            System.out.println("5. Keluar");
+            System.out.print("Pilih menu: ");
+            choice = scanner.nextInt();
+            scanner.nextLine(); // Konsumsi newline
+
+            switch (choice) {
+                case 1:
+                    addPassenger();
+                    break;
+                case 2:
+                    findNearestDriver();
+                    break;
+                case 3:
+                    payTrip();
+                    break;
+                case 4:
+                    emergencyAction();
+                    break;
+                case 5:
+                    System.out.println("See you in another chance and take care ;)");
+                    break;
+                default:
+                    System.out.println("Pilihan tidak ditemukan nih, coba lagi yaa!");
+            }
+        } while (choice != 5);
+    }
+
+    public static void addPassenger() {
+        System.out.print("Nama kamu siapa, nih?: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Apakah kamu seorang perempuan? (y/n): ");
+        String genderInput = scanner.nextLine();
+        if (!genderInput.equalsIgnoreCase("y")) {
+            System.out.println("Eits.. Girls only yaaa!");
+            return;
+        }
+
+        System.out.print("Mau kemana hari ini, cantik?: ");
+        String location = scanner.nextLine();
+
+        if (verifyIdentity(name)) {
+            Passenger passenger = new Passenger(name, location, "Perempuan");
+            passengers.add(passenger);
+            System.out.println("Tuan putri " + name + " sudah siap berangkat!");
+        } else {
+            System.out.println("Verifikasi gagal, coba lagi yaaa.");
+        }
+    }
+
+    public static boolean verifyIdentity(String name) {
+        System.out.print("Masukkan NIK untuk verifikasi: ");
+        String identity = scanner.nextLine();
+        System.out.print("Masukkan ulang NIK untuk konfirmasi: ");
+        String confirmIdentity = scanner.nextLine();
+        return identity.equals(confirmIdentity);
+    }
+
+    public static void findNearestDriver() {
+        if (passengers.isEmpty()) {
+            System.out.println("Tuan putri nya belum ada, nih.");
+            return;
+        }
+
+        System.out.print("Masukkan nama tuan putri untuk pencarian driver: ");
+        String passengerName = scanner.nextLine();
+        Passenger passenger = findPassengerByName(passengerName);
+        if (passenger == null) {
+            System.out.println("Tuan putri nya belum ada, nih.");
+            return;
+        }
+
+        Driver nearestDriver = null;
+        for (Driver driver : drivers) {
+            if (driver.available) {
+                System.out.println("\nDapet nih!:");
+                System.out.println("Nama: " + driver.name);
+                System.out.println("Jarak dari penumpang: " + driver.distance + " km");
+                System.out.println("Rating: " + driver.rating);
+
+                System.out.println("\nPilih tindakan:");
+                System.out.println("1 = 'Mau ini pls' (memilih driver ini)");
+                System.out.println("2 = 'Skip deh'");
+                System.out.println("3 = 'Mau cancel'");
+
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+
+                if (choice == 1) {
+                    System.out.println("Berang berang makan tomat, berangkaaatt!");
+                    return;
+                } else if (choice == 2) {
+                    continue;
+                } else if (choice == 3) {
+                    System.out.println("Otey, babay");
+                    return;
+                } else {
+                    System.out.println("Gabisaa, coba lagi yaa.");
+                }
+            }
+        }
+        System.out.println("Lagi gaada driver, nanti aja yak.");
+    }
+
+    public static void payTrip() {
+        System.out.print("Masukkan nama tuan putri untuk pembayaran: ");
+        String name = scanner.nextLine();
+        Passenger passenger = findPassengerByName(name);
+
+        if (passenger == null) {
+            System.out.println("Tuan putrinya belum ada, nih.");
+            return;
+        }
+
+        System.out.print("Masukkan jarak perjalanan (dalam km): ");
+        int tripDistance = scanner.nextInt();
+        if (tripDistance <= 0) {
+            System.out.println("Jarak perjalanan tidak valid.");
+            return;
+        }
+
+        int costPerKm = 5000;
+        int totalCost = tripDistance * costPerKm;
+
+        System.out.println("Total biaya perjalanan: Rp" + totalCost);
+        System.out.println("\nPilih metode pembayaran:");
+        System.out.println("1. Cash");
+        System.out.println("2. Transfer Bank");
+        System.out.println("3. E-Wallet");
+        System.out.println("4. Ngutang");
+
+        int paymentMethod = scanner.nextInt();
+        scanner.nextLine(); // Konsumsi newline
+
+        switch (paymentMethod) {
+            case 1:
+            case 2:
+            case 3:
+                System.out.print("Masukkan jumlah uang yang dibayarkan: ");
+                int payment = scanner.nextInt();
+                scanner.nextLine(); // Konsumsi newline
+
+                if (payment < totalCost) {
+                    System.out.println("Duitnya kurang, minta papa dulu.");
+                } else if (payment == totalCost) {
+                    System.out.println("Pembayaran berhasil. Terima kasih, Cantik!");
+                } else {
+                    int change = payment - totalCost;
+                    System.out.println("Pembayaran berhasil. Kembalianmu: Rp" + change);
+                    System.out.println("Terima kasih, Cantik!");
+                }
+                break;
+
+            case 4:
+                System.out.println("Gaboleh ngutang bang.");
+                break;
+
+            default:
+                System.out.println("Metode pembayaran tidak valid.");
+        }
+    }
+
+    public static void emergencyAction() {
+        System.out.print("Mau panggil pulici? (y/n): ");
+        String response = scanner.nextLine();
+
+        if (response.equalsIgnoreCase("y")) {
+            System.out.println("Memanggil 911...");
+            System.out.println("Kesatria baja hitam akan menyelamatkanmu, jangan panik dan tetap duduk manis yaa, cantik.");
+        } else {
+            System.out.println("Tindakan darurat dibatalkan, jaga diri baik baik yaa");
+        }
+    }
+
+    public static Passenger findPassengerByName(String name) {
+        for (Passenger passenger : passengers) {
+            if (passenger.name.equalsIgnoreCase(name)) {
+                return passenger;
+            }
+        }
+        return null;
+    }
+}
