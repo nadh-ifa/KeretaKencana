@@ -1,0 +1,11 @@
+public static void emergencyAction() {
+    System.out.print("Mau panggil pulici? (y/n): ");
+    String response = scanner.nextLine();
+
+    if (response.equalsIgnoreCase("y")) {
+        System.out.println("Memanggil 911...");
+        System.out.println("Kesatria baja hitam akan menyelamatkanmu, jangan panik dan tetap duduk manis yaa, cantik.");
+    } else {
+        System.out.println("Tindakan darurat dibatalkan, jaga diri baik baik yaa");
+    }
+}
